@@ -9,6 +9,7 @@ COPY /artifacts/logback.xml /datomic-pro/bin/logback.xml
 RUN curl -fsSL -o /datomic-pro/lib/logstash-logback-encoder-7.4.jar https://repo1.maven.org/maven2/net/logstash/logback/logstash-logback-encoder/7.4/logstash-logback-encoder-7.4.jar
 
 FROM eclipse-temurin:21.0.2_13-jdk-jammy
+
 COPY --from=build /datomic-pro /datomic-pro
 COPY configure_and_start.sh /datomic-pro/configure_and_start.sh
 
