@@ -7,8 +7,8 @@ add_config() {
 if [[ ! -z "$PG_HOST" ]]; then
 
   add_config "protocol" "sql"
-  add_config "host" ${DATOMIC_HOST}
-  add_config "port" "4334"
+  add_config "host" "${TRANSACTOR_HOST}"
+  add_config "port" "${TRANSACTOR_PORT}"
   add_config "sql-url" "jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}"
   add_config "sql-user" "${PG_USER}"
   add_config "sql-password" "${PG_PASSWORD}"

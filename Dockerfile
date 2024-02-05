@@ -15,8 +15,8 @@ COPY configure_and_start.sh /datomic-pro/configure_and_start.sh
 
 ENV RUN_MODE "TRANSACTOR"
 ENV RUN_ENV "PROD"
-ENV DATOMIC_HOST "localhost"
-ENV DATOMIC_PORT "4334"
+ENV TRANSACTOR_HOST "localhost"
+ENV TRANSACTOR_PORT "4334"
 ENV PG_HOST ""
 ENV PG_PORT "5432"
 ENV PG_USER "datomic"
