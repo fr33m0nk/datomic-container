@@ -26,3 +26,5 @@
 | PEER_ACCESSKEY       | `PEER`                               |                        | `myaccesskey`              |
 | PEER_SECRET          | `PEER`                               |                        | `mysecret`                 |
 | DATOMIC_DB_NAME      | `PEER`                               |                        | **None, provided by user** |
+
+### [Official Datomic deployment docs](https://docs.datomic.com/pro/operation/deployment.html)
