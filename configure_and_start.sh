@@ -11,6 +11,11 @@ add_config() {
   echo "$1=$2" | tee -a sql-transactor.properties
 }
 
+if [[ "${RUN_MODE}" =~ ^(TRANSACTOR|PEER)$ ]]; then
+  echo "Invalid RUN_MODE supplied.\nTRANSACTOR and PEER are the only supported values."
+  exit 1
+fi
+
 ## Validations for mandatory environment variable
 validate_env_vars "${PG_HOST}" "PG_HOST"
 validate_env_vars "${PG_USER}" "PG_USER"
