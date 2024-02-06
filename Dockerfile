@@ -1,6 +1,8 @@
 FROM alpine:3.19.1 as build
 
 ARG DATOMIC_VERSION
+## Validations for mandatory build arg
+RUN [ ! -z "${DATOMIC_VERSION}" ]
 
 RUN curl -fsSL -o datomic-pro.zip https://datomic-pro-downloads.s3.amazonaws.com/${DATOMIC_VERSION}/datomic-pro-${DATOMIC_VERSION}.zip -O
 RUN unzip -qq ./datomic-pro.zip && true
@@ -17,14 +19,20 @@ ENV RUN_MODE "TRANSACTOR"
 ENV RUN_ENV "PROD"
 ENV TRANSACTOR_HOST "localhost"
 ENV TRANSACTOR_PORT "4334"
-ENV PG_HOST ""
-ENV PG_PORT "5432"
-ENV PG_USER "datomic"
-ENV PG_DATABASE "datomic"
-ENV PG_PASSWORD "datomic"
 ENV XMS "4g"
 ENV XMX "4g"
 ENV LOG_LEVEL "INFO"
+ENV PG_PORT "5432"
+ENV PG_HOST ""
+ENV PG_DATABASE ""
+ENV PG_USER ""
+ENV PG_PASSWORD ""
+
+## Validations for mandatory environment variable
+RUN [ ! -z "${PG_HOST}" ]
+RUN [ ! -z "${PG_USER}" ]
+RUN [ ! -z "${PG_PASSWORD}" ]
+RUN [ ! -z "${PG_DATABASE}" ]
 
 WORKDIR /datomic-pro
 RUN chmod a+x configure_and_start.sh
