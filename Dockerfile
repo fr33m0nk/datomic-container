@@ -39,6 +39,12 @@ ENV PEER_ACCESSKEY "myaccesskey"
 ENV PEER_SECRET "mysecret"
 ENV DATOMIC_DB_NAME ""
 
+ENV BACKUP_S3_BUCKET_URI ""
+ENV DATOMIC_DB_URI ""
+ENV VERIFY_ALL_SEGMENTS "true"
+ENV BACKUP_TIME_IN_LONG ""
+
+
 WORKDIR /datomic-pro
 RUN chmod a+x configure_and_start.sh
 ENTRYPOINT ./configure_and_start.sh
