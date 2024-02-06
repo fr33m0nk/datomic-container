@@ -1,4 +1,4 @@
-# Container build file for Datomic Database using PostgreSQL as backend
+# Container build file for Datomic Database with PostgreSQL backend
 
 ## Same container image can be run as a Transactor or Peer
 - This is controlled by image environment variable `RUN_MODE`
