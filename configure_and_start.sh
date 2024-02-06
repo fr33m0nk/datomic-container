@@ -47,10 +47,11 @@ fi
 if [[ "${RUN_MODE}" = "PEER" ]]; then
   validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
 
-  bin/run -m datomic.peer-server\
-          -h "${PEER_HOST}"\
-          -p "${PEER_PORT}"\
-          -a "${PEER_ACCESSKEY}","${PEER_SECRET}"\
+  bin/run -Xmx"$XMX" -Xms"$XMS" \
+          -m datomic.peer-server \
+          -h "${PEER_HOST}" \
+          -p "${PEER_PORT}" \
+          -a "${PEER_ACCESSKEY}","${PEER_SECRET}" \
           -d "${DATOMIC_DB_NAME}",$(datomic_uri)
 fi
 
