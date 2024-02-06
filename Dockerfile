@@ -9,10 +9,10 @@ RUN apk add --no-cache --update \
         curl \
         unzip
 RUN curl -fsSL -o datomic-pro.zip https://datomic-pro-downloads.s3.amazonaws.com/${DATOMIC_VERSION}/datomic-pro-${DATOMIC_VERSION}.zip
-RUN unzip ./datomic-pro.zip -d / && true
+RUN unzip -qq ./datomic-pro.zip -d / && true
+RUN mv "/datomic-pro-${DATOMIC_VERSION}" /datomic-pro && true
+RUN curl -fsSL -o /datomic-pro/lib/logstash-logback-encoder-7.4.jar https://repo1.maven.org/maven2/net/logstash/logback/logstash-logback-encoder/7.4/logstash-logback-encoder-7.4.jar
 COPY ./artifacts/logback.xml /datomic-pro/bin/logback.xml
-RUN curl -fsSL -o logstash-logback-encoder-7.4.jar https://repo1.maven.org/maven2/net/logstash/logback/logstash-logback-encoder/7.4/logstash-logback-encoder-7.4.jar
-RUN mv ./logstash-logback-encoder-7.4.jar /datomic-pro/lib/logstash-logback-encoder-7.4.jar
 RUN rm -rf ./datomic-pro.zip
 
 FROM eclipse-temurin:21.0.2_13-jdk-jammy
