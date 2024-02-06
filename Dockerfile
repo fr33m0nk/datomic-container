@@ -33,12 +33,6 @@ ENV PG_DATABASE ""
 ENV PG_USER ""
 ENV PG_PASSWORD ""
 
-## Validations for mandatory environment variable
-RUN [ ! -z "${PG_HOST}" ]
-RUN [ ! -z "${PG_USER}" ]
-RUN [ ! -z "${PG_PASSWORD}" ]
-RUN [ ! -z "${PG_DATABASE}" ]
-
 WORKDIR /datomic-pro
 RUN chmod a+x configure_and_start.sh
 ENTRYPOINT ./configure_and_start.sh
