@@ -4,6 +4,10 @@ ARG DATOMIC_VERSION
 ## Validations for mandatory build arg
 RUN [ ! -z "${DATOMIC_VERSION}" ]
 
+RUN apk add ca-certificates && update-ca-certificates
+RUN apk add --no-cache --update \
+        curl \
+        unzip
 RUN curl -fsSL -o datomic-pro.zip https://datomic-pro-downloads.s3.amazonaws.com/${DATOMIC_VERSION}/datomic-pro-${DATOMIC_VERSION}.zip -O
 RUN unzip -qq ./datomic-pro.zip && true
 RUN rm -rf ./datomic-pro.zip
