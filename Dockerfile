@@ -33,6 +33,12 @@ ENV PG_DATABASE ""
 ENV PG_USER ""
 ENV PG_PASSWORD ""
 
+ENV PEER_HOST "localhost"
+ENV PEER_PORT "8998"
+ENV PEER_ACCESSKEY "myaccesskey"
+ENV PEER_SECRET "mysecret"
+ENV DATOMIC_DB_NAME ""
+
 WORKDIR /datomic-pro
 RUN chmod a+x configure_and_start.sh
 ENTRYPOINT ./configure_and_start.sh
