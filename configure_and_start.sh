@@ -11,6 +11,10 @@ add_config() {
   echo "$1=$2" | tee -a sql-transactor.properties
 }
 
+datomic_uri() {
+  echo "datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
+}
+
 if [[ "${RUN_MODE}" =~ ^(TRANSACTOR|PEER|BACKUP|RESTORE)$ ]]; then
   echo "Invalid RUN_MODE supplied.\nTRANSACTOR and PEER are the only supported values."
   exit 1
@@ -47,14 +51,14 @@ if [[ "${RUN_MODE}" = "PEER" ]]; then
           -h "${PEER_HOST}"\
           -p "${PEER_PORT}"\
           -a "${PEER_ACCESSKEY}","${PEER_SECRET}"\
-          -d "${DATOMIC_DB_NAME}","datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
+          -d "${DATOMIC_DB_NAME}",$(datomic_uri)
 fi
 
 if [[ "${RUN_MODE}" = "BACKUP_DB" ]]; then
   validate_env_vars "${BACKUP_S3_BUCKET_URI}" "BACKUP_S3_BUCKET_URI"
   validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
 
-  bin/datomic -Xmx"$XMX" -Xms"$XMS" backup-db "datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}" "$BACKUP_S3_BUCKET_URI"
+  bin/datomic -Xmx"$XMX" -Xms"$XMS" backup-db $(datomic_uri) "$BACKUP_S3_BUCKET_URI"
 fi
 
 if [[ "${RUN_MODE}" = "LIST_BACKUPS" ]]; then
@@ -79,8 +83,8 @@ if [[ "${RUN_MODE}" = "RESTORE_DB" ]]; then
   validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
 
   if [[ -z "${RESTORE_TIME_IN_LONG}" ]]; then
-    bin/datomic -Xmx"$XMX" -Xms"$XMS" restore-db "${BACKUP_S3_BUCKET_URI}" "datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
+    bin/datomic -Xmx"$XMX" -Xms"$XMS" restore-db "${BACKUP_S3_BUCKET_URI}" $(datomic_uri)
   else
-    bin/datomic -Xmx"$XMX" -Xms"$XMS" restore-db "${BACKUP_S3_BUCKET_URI}" "datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}" "${BACKUP_TIME_IN_LONG}"
+    bin/datomic -Xmx"$XMX" -Xms"$XMS" restore-db "${BACKUP_S3_BUCKET_URI}" $(datomic_uri)
   fi
 fi
