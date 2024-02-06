@@ -47,5 +47,5 @@ if [[ "${RUN_MODE}" = "PEER" ]]; then
           -h "${PEER_HOST}"\
           -p "${PEER_PORT}"\
           -a "${PEER_ACCESSKEY}","${PEER_SECRET}"\
-          -d ${DATOMIC_DB_NAME},"datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
+          -d "${DATOMIC_DB_NAME}","datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
 fi
