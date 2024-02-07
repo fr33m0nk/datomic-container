@@ -28,7 +28,7 @@
 | VALCACHE_MAX_GB          | `TRANSACTOR` (optional), `PEER` (optional)                 |                                                                                  | **None, provided by user** |
 | XMS                      | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `4g`                       |
 | XMX                      | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `4g`                       |
-| LOG_LEVEL                | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `5432`                     |
+| LOG_LEVEL                | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `INFO`                     |
 | PG_PORT                  | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `5432`                     |
 | PG_HOST                  | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | **None, provided by user** |
 | PG_USER                  | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | **None, provided by user** |
