@@ -81,10 +81,14 @@ if [[ "${RUN_MODE}" = "PEER" ]]; then
     fi
   fi
 
-#  run_cmd = "-Xmx${$XMX} -Xms${XMS} -m datomic.peer-server -h ${PEER_HOST} -p ${PEER_PORT} -a ${PEER_ACCESSKEY},${PEER_SECRET} -d ${DATOMIC_DB_NAME},$(datomic_uri)"
-#  -Ddatomic.txTimeoutMsec=60000 -Ddatomic.memcachedServers=staging-datomic-memcached-cluster.zpto5z.cfg.use1.cache.amazonaws.com:11211 -Ddatomic.memcachedAutoDiscovery=true -Ddatomic.metricsCallback=fr33m0nk.datomic-datadog-reporter/send-metrics
-  bin/run -Xmx"$XMX" -Xms"$XMS" \
-          "${extended_peer_options}" \
+  if [[ ! -z "${VALCACHE_PATH}" ]]; then
+    extended_peer_options = "${extended_peer_options} -Ddatomic.valcachePath=${VALCACHE_PATH}"
+    if [[ ! -z "${VALCACHE_MAX_GB}" ]]; then
+      extended_peer_options = "${extended_peer_options} -Ddatomic.valcacheMaxGb=${VALCACHE_MAX_GB}"
+    fi
+  fi
+
+  bin/run -Xmx"$XMX" -Xms"$XMS" "${extended_peer_options}" \
           -m datomic.peer-server \
           -h "${PEER_HOST}" \
           -p "${PEER_PORT}" \
