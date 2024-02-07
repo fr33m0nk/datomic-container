@@ -40,6 +40,26 @@ if [[ "${RUN_MODE}" = "TRANSACTOR" ]]; then
   add_config "memory-index-max" "512m"
   add_config "object-cache-max" "1g"
 
+  if [[ ! -z "${MEMCACHED_HOST}" ]]; then
+    add_config "memcached" "${MEMCACHED_HOST}"
+    if [[ ! -z "${MEMCACHED_USERNAME}" ]]; then
+      add_config "memcached-username" "${MEMCACHED_USERNAME}"
+    fi
+    if [[ ! -z "${MEMCACHED_PASSWORD}" ]]; then
+      add_config "memcached-password" "${MEMCACHED_PASSWORD}"
+    fi
+    if [[ ! -z "${MEMCACHED_AUTO_DISCOVERY}" ]]; then
+          add_config "memcached-auto-discovery" "${MEMCACHED_AUTO_DISCOVERY}"
+    fi
+  fi
+
+  if [[ ! -z "${VALCACHE_PATH}" ]]; then
+    add_config "valcache-path" "${VALCACHE_PATH}"
+    if [[ ! -z "${VALCACHE_MAX_GB}" ]]; then
+      add_config "valcache-max-gb" "${VALCACHE_MAX_GB}"
+    fi
+  fi
+
   ## Start up Datomic Transactor
   bin/transactor -Xmx"$XMX" -Xms"$XMS" sql-transactor.properties
 fi
