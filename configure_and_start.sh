@@ -48,7 +48,7 @@ if [[ "${RUN_MODE}" = "TRANSACTOR" ]]; then
     if [[ ! -z "${MEMCACHED_PASSWORD}" ]]; then
       add_config "memcached-password" "${MEMCACHED_PASSWORD}"
     fi
-    if [[ "${MEMCACHED_AUTO_DISCOVERY}" =~ ^(true|false)$ ]]; then
+    if [[ "${MEMCACHED_AUTO_DISCOVERY}" = @(true|false) ]]; then
           add_config "memcached-auto-discovery" "${MEMCACHED_AUTO_DISCOVERY}"
     fi
   fi
@@ -67,7 +67,24 @@ fi
 if [[ "${RUN_MODE}" = "PEER" ]]; then
   validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
 
+  extended_peer_options = ""
+  if [[ ! -z "${MEMCACHED_HOST}" ]]; then
+    extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedServers=${MEMCACHED_HOST}"
+    if [[ ! -z "${MEMCACHED_USERNAME}" ]]; then
+      extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedUsername=${MEMCACHED_USERNAME}"
+    fi
+    if [[ ! -z "${MEMCACHED_PASSWORD}" ]]; then
+      extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedPassword=${MEMCACHED_PASSWORD}"
+    fi
+    if [[ "${MEMCACHED_AUTO_DISCOVERY}" = @(true|false) ]]; then
+          extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedAutoDiscovery=${MEMCACHED_AUTO_DISCOVERY}"
+    fi
+  fi
+
+#  run_cmd = "-Xmx${$XMX} -Xms${XMS} -m datomic.peer-server -h ${PEER_HOST} -p ${PEER_PORT} -a ${PEER_ACCESSKEY},${PEER_SECRET} -d ${DATOMIC_DB_NAME},$(datomic_uri)"
+#  -Ddatomic.txTimeoutMsec=60000 -Ddatomic.memcachedServers=staging-datomic-memcached-cluster.zpto5z.cfg.use1.cache.amazonaws.com:11211 -Ddatomic.memcachedAutoDiscovery=true -Ddatomic.metricsCallback=fr33m0nk.datomic-datadog-reporter/send-metrics
   bin/run -Xmx"$XMX" -Xms"$XMS" \
+          "${extended_peer_options}" \
           -m datomic.peer-server \
           -h "${PEER_HOST}" \
           -p "${PEER_PORT}" \
