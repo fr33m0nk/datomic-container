@@ -15,8 +15,8 @@ datomic_uri() {
   echo "datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
 }
 
-if [[ "${RUN_MODE}" =~ ^(TRANSACTOR|PEER|BACKUP|RESTORE)$ ]]; then
-  echo "Invalid RUN_MODE supplied.\nTRANSACTOR and PEER are the only supported values."
+if [[ "${RUN_MODE}" != @(TRANSACTOR|PEER|BACKUP_DB|LIST_BACKUPS|VERIFY_BACKUP|RESTORE_DB) ]]; then
+  echo "Invalid RUN_MODE: ${RUN_MODE} supplied.\nTRANSACTOR, PEER, BACKUP_DB, LIST_BACKUPS, VERIFY_BACKUP, RESTORE_DB are the only supported values."
   exit 1
 fi
 
@@ -48,7 +48,7 @@ if [[ "${RUN_MODE}" = "TRANSACTOR" ]]; then
     if [[ ! -z "${MEMCACHED_PASSWORD}" ]]; then
       add_config "memcached-password" "${MEMCACHED_PASSWORD}"
     fi
-    if [[ ! -z "${MEMCACHED_AUTO_DISCOVERY}" ]]; then
+    if [[ "${MEMCACHED_AUTO_DISCOVERY}" =~ ^(true|false)$ ]]; then
           add_config "memcached-auto-discovery" "${MEMCACHED_AUTO_DISCOVERY}"
     fi
   fi
