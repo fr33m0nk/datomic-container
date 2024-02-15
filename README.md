@@ -20,6 +20,9 @@
 | RUN_MODE                 | Starts Datomic as Transactor or Peer                       | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `LIST_BACKUPS`, `VERIFY_BACKUP`, `RESTORE_DB` | `TRANSACTOR`               |
 | TRANSACTOR_HOST          | `TRANSACTOR`                                               |                                                                                  | `localhost`                |
 | TRANSACTOR_PORT          | `TRANSACTOR`                                               |                                                                                  | `4334`                     |
+| MEMORY_INDEX_THRESHOLD   | `TRANSACTOR`                                               |                                                                                  | `32m`                      |
+| MEMORY_INDEX_MAX         | `TRANSACTOR`                                               |                                                                                  | `512m`                     |
+| OBJECT_CACHE_MAX         | `TRANSACTOR`                                               |                                                                                  | `1g`                       |
 | MEMCACHED_HOST           | `TRANSACTOR` (optional), `PEER` (optional)                 |                                                                                  | **None, provided by user** |
 | MEMCACHED_AUTO_DISCOVERY | `TRANSACTOR` (optional), `PEER` (optional)                 |                                                                                  | **None, provided by user** |
 | MEMCACHED_USERNAME       | `TRANSACTOR` (optional), `PEER` (optional)                 |                                                                                  | **None, provided by user** |

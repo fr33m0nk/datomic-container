@@ -30,15 +30,15 @@ if [[ "${RUN_MODE}" = "TRANSACTOR" ]]; then
 
   ## Prepare config file for Datomic Transactor
   add_config "protocol" "sql"
+  add_config "sql-driver-class" "org.postgresql.Driver"
   add_config "host" "${TRANSACTOR_HOST}"
   add_config "port" "${TRANSACTOR_PORT}"
   add_config "sql-url" "jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}"
   add_config "sql-user" "${PG_USER}"
   add_config "sql-password" "${PG_PASSWORD}"
-  add_config "sql-driver-class" "org.postgresql.Driver"
-  add_config "memory-index-threshold" "32m"
-  add_config "memory-index-max" "512m"
-  add_config "object-cache-max" "1g"
+  add_config "memory-index-threshold" "${MEMORY_INDEX_THRESHOLD}"
+  add_config "memory-index-max" "${MEMORY_INDEX_MAX}"
+  add_config "object-cache-max" "${OBJECT_CACHE_MAX}"
 
   if [[ ! -z "${MEMCACHED_HOST}" ]]; then
     add_config "memcached" "${MEMCACHED_HOST}"
