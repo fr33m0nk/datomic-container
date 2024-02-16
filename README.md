@@ -64,4 +64,6 @@
 | BACKUP_TIME_IN_LONG                 | `VERIFY_BACKUP`, `RESTORE_DB` (optional)                   |                                                                                  | **None, provided by user** |
 
 
+## See [`docker-compose.yml`](./docker-compose/README.md) for usage with docker
+
 ### [Official Datomic deployment docs](https://docs.datomic.com/pro/operation/deployment.html)
