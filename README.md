@@ -1,5 +1,11 @@
 # Container build file for Datomic Database with PostgreSQL backend
 
+## Image build arg:
+| Build argument    | Default value                                                                    |
+|-------------------|:---------------------------------------------------------------------------------|
+| `DATOMIC_VERSION` | **None, provided by user**                                                       |
+|                   | Check [Datomic Release](https://docs.datomic.com/pro/releases.html) for versions |
+
 ## Same container image can be run as a Transactor or Peer
 - This is controlled by image environment variable `RUN_MODE`
 - This environment variable needs to be passed when running the image
