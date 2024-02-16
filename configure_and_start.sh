@@ -31,7 +31,17 @@ if [[ "${RUN_MODE}" = "TRANSACTOR" ]]; then
   ## Prepare config file for Datomic Transactor
   add_config "protocol" "sql"
   add_config "sql-driver-class" "org.postgresql.Driver"
+  add_config "pid-file" "transactor.pid"
   add_config "host" "${TRANSACTOR_HOST}"
+  add_config "alt-host" "${TRANSACTOR_ALT_HOST}"
+  add_config "ping-host" "${TRANSACTOR_HOST}"
+  add_config "ping-port" "${TRANSACTOR_HEALTHCHECK_PORT}"
+  add_config "ping-concurrency" "${TRANSACTOR_HEALTHCHECK_CONCURRENCY}"
+  add_config "heartbeat-interval-msec" "${TRANSACTOR_HEARTBEAT_INTERVAL_IN_MS}"
+  add_config "encrypt-channel" "${TRANSACTOR_ENCRYPT_CHANNEL}"
+  add_config "write-concurrency" "${TRANSACTOR_WRITE_CONCURRENCY}"
+  add_config "read-concurrency" "${TRANSACTOR_READ_CONCURRENCY}"
+
   add_config "port" "${TRANSACTOR_PORT}"
   add_config "sql-url" "jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}"
   add_config "sql-user" "${PG_USER}"
@@ -41,13 +51,17 @@ if [[ "${RUN_MODE}" = "TRANSACTOR" ]]; then
   add_config "object-cache-max" "${OBJECT_CACHE_MAX}"
 
   if [[ ! -z "${MEMCACHED_HOST}" ]]; then
-    add_config "memcached" "${MEMCACHED_HOST}"
+    add_config "memcached" "${MEMCACHED_HOST}:${MEMCACHED_PORT}"
+    add_config "memcached-config-timeout-msec" "${MEMCACHED_CONFIG_TIMEOUT_IN_MS}"
+
     if [[ ! -z "${MEMCACHED_USERNAME}" ]]; then
       add_config "memcached-username" "${MEMCACHED_USERNAME}"
     fi
+
     if [[ ! -z "${MEMCACHED_PASSWORD}" ]]; then
       add_config "memcached-password" "${MEMCACHED_PASSWORD}"
     fi
+
     if [[ "${MEMCACHED_AUTO_DISCOVERY}" = @(true|false) ]]; then
           add_config "memcached-auto-discovery" "${MEMCACHED_AUTO_DISCOVERY}"
     fi
@@ -55,27 +69,31 @@ if [[ "${RUN_MODE}" = "TRANSACTOR" ]]; then
 
   if [[ ! -z "${VALCACHE_PATH}" ]]; then
     add_config "valcache-path" "${VALCACHE_PATH}"
+
     if [[ ! -z "${VALCACHE_MAX_GB}" ]]; then
       add_config "valcache-max-gb" "${VALCACHE_MAX_GB}"
     fi
   fi
 
   ## Start up Datomic Transactor
-  bin/transactor -Xmx"$XMX" -Xms"$XMS" sql-transactor.properties
+  bin/transactor -Xmx"$XMX" -Xms"$XMS" ./sql-transactor.properties
 fi
 
 if [[ "${RUN_MODE}" = "PEER" ]]; then
   validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
 
-  extended_peer_options = ""
+  extended_peer_options = "-Ddatomic.txTimeoutMsec=${PEER_TX_TIMEOUT_IN_MS} -Ddatomic.readConcurrency=${PEER_READ_CONCURRENCY}"
   if [[ ! -z "${MEMCACHED_HOST}" ]]; then
-    extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedServers=${MEMCACHED_HOST}"
+    extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedServers=${MEMCACHED_HOST}:${MEMCACHED_PORT}"
+    extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedConfigTimeoutMsec=${MEMCACHED_CONFIG_TIMEOUT_IN_MS}"
     if [[ ! -z "${MEMCACHED_USERNAME}" ]]; then
       extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedUsername=${MEMCACHED_USERNAME}"
     fi
+
     if [[ ! -z "${MEMCACHED_PASSWORD}" ]]; then
       extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedPassword=${MEMCACHED_PASSWORD}"
     fi
+
     if [[ "${MEMCACHED_AUTO_DISCOVERY}" = @(true|false) ]]; then
           extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedAutoDiscovery=${MEMCACHED_AUTO_DISCOVERY}"
     fi
