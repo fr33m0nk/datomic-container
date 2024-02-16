@@ -7,7 +7,7 @@ services:
     image: memcached:${MEMCACHED_IMAGE_TAG}
     command: memcached -m ${MEMCACHED_MAX_RAM}
     ports:
-      - ${MEMCACHED_EXPOSED_PORT}:11211
+      - ${MEMCACHED_HOST_MAPPING_PORT}:11211
     restart: always
     networks:
       datomic-network:
