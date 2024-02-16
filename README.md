@@ -1,5 +1,7 @@
 # Container build file for Datomic Database with PostgreSQL backend
 
+## See [`docker-compose.yml`](./docker-compose/README.md) for usage with docker
+
 ## Image build arg:
 | Build argument    | Default value                                                                    |
 |-------------------|:---------------------------------------------------------------------------------|
@@ -62,8 +64,5 @@
 | BACKUP_S3_BUCKET_URI                | `BACKUP_DB`, `LIST_BACKUPS`, `VERIFY_BACKUP`, `RESTORE_DB` |                                                                                  | **None, provided by user** |
 | VERIFY_ALL_SEGMENTS                 | `VERIFY_BACKUP`                                            | `true` or `false`                                                                | `true`                     |
 | BACKUP_TIME_IN_LONG                 | `VERIFY_BACKUP`, `RESTORE_DB` (optional)                   |                                                                                  | **None, provided by user** |
-
-
-## See [`docker-compose.yml`](./docker-compose/README.md) for usage with docker
 
 ### [Official Datomic deployment docs](https://docs.datomic.com/pro/operation/deployment.html)
