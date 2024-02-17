@@ -18,6 +18,7 @@
   - `LIST_BACKUPS`
   - `VERIFY_BACKUP` 
   - `RESTORE_DB` 
+  - `CONSOLE`
 - Defaults to `TRANSACTOR`
 
 
