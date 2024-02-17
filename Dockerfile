@@ -64,6 +64,7 @@ ENV DATOMIC_DB_URI ""
 ENV VERIFY_ALL_SEGMENTS "true"
 ENV BACKUP_TIME_IN_LONG ""
 
+ENV DATOMIC_CONSOLE_PORT "8888"
 
 WORKDIR /datomic-pro
 RUN chmod a+x configure_and_start.sh
