@@ -10,6 +10,9 @@
   - This container creates a database in Datomic system
   - This step is needed for the Peer to start
 - Datomic peer
+- Datomic console
+  - Accessible at `http://localhost:${CONSOLE_HOST_MAPPING_PORT}`
+  - Default value for `CONSOLE_HOST_MAPPING_PORT` is `8888`
 
 ## The configuration variables for docker compose file are in [`.env`](./.env) file
 
@@ -18,7 +21,7 @@
 ### Starting the docker compose 
 1. Start containers
 ```bash
-docker compose up --build transactor peer datomic-db-initialization -d
+docker compose up --build transactor peer datomic-db-initialization console -d
 ```
 2. Connect via Datomic peer
 ```clojure
