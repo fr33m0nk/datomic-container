@@ -147,6 +147,7 @@ services:
       - DATOMIC_DB_NAME=${DATOMIC_DB_NAME}
       - PEER_ACCESSKEY=${PEER_ACCESSKEY}
       - PEER_SECRET=${PEER_SECRET}
+      - MEMCACHED_HOST=192.168.200.2
     restart: always
     networks:
       datomic-network:
