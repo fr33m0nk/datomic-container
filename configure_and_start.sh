@@ -82,27 +82,27 @@ fi
 if [[ "${RUN_MODE}" = "PEER" ]]; then
   validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
 
-  extended_peer_options = "-Ddatomic.txTimeoutMsec=${PEER_TX_TIMEOUT_IN_MS} -Ddatomic.readConcurrency=${PEER_READ_CONCURRENCY}"
+  extended_peer_options="-Ddatomic.txTimeoutMsec=${PEER_TX_TIMEOUT_IN_MS} -Ddatomic.readConcurrency=${PEER_READ_CONCURRENCY}"
   if [[ ! -z "${MEMCACHED_HOST}" ]]; then
-    extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedServers=${MEMCACHED_HOST}:${MEMCACHED_PORT}"
-    extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedConfigTimeoutMsec=${MEMCACHED_CONFIG_TIMEOUT_IN_MS}"
+    extended_peer_options="${extended_peer_options} -Ddatomic.memcachedServers=${MEMCACHED_HOST}:${MEMCACHED_PORT}"
+    extended_peer_options="${extended_peer_options} -Ddatomic.memcachedConfigTimeoutMsec=${MEMCACHED_CONFIG_TIMEOUT_IN_MS}"
     if [[ ! -z "${MEMCACHED_USERNAME}" ]]; then
-      extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedUsername=${MEMCACHED_USERNAME}"
+      extended_peer_options="${extended_peer_options} -Ddatomic.memcachedUsername=${MEMCACHED_USERNAME}"
     fi
 
     if [[ ! -z "${MEMCACHED_PASSWORD}" ]]; then
-      extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedPassword=${MEMCACHED_PASSWORD}"
+      extended_peer_options="${extended_peer_options} -Ddatomic.memcachedPassword=${MEMCACHED_PASSWORD}"
     fi
 
     if [[ "${MEMCACHED_AUTO_DISCOVERY}" = @(true|false) ]]; then
-          extended_peer_options = "${extended_peer_options} -Ddatomic.memcachedAutoDiscovery=${MEMCACHED_AUTO_DISCOVERY}"
+          extended_peer_options="${extended_peer_options} -Ddatomic.memcachedAutoDiscovery=${MEMCACHED_AUTO_DISCOVERY}"
     fi
   fi
 
   if [[ ! -z "${VALCACHE_PATH}" ]]; then
-    extended_peer_options = "${extended_peer_options} -Ddatomic.valcachePath=${VALCACHE_PATH}"
+    extended_peer_options="${extended_peer_options} -Ddatomic.valcachePath=${VALCACHE_PATH}"
     if [[ ! -z "${VALCACHE_MAX_GB}" ]]; then
-      extended_peer_options = "${extended_peer_options} -Ddatomic.valcacheMaxGb=${VALCACHE_MAX_GB}"
+      extended_peer_options="${extended_peer_options} -Ddatomic.valcacheMaxGb=${VALCACHE_MAX_GB}"
     fi
   fi
 
