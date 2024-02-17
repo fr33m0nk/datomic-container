@@ -119,6 +119,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      postgres-migrator:
+        condition: service_completed_successfully
       memcached:
         condition: service_healthy
       transactor:
