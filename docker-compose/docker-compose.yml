@@ -159,6 +159,31 @@ services:
       datomic-db-initialization:
         condition: service_completed_successfully
 
+  console:
+    build:
+      context: ../
+      args:
+        DATOMIC_VERSION: 1.0.7075
+      dockerfile: Dockerfile
+    ports:
+      - ${CONSOLE_HOST_MAPPING_PORT}:8888
+    environment:
+      - RUN_MODE=CONSOLE
+      - PG_HOST=postgres
+      - PG_PORT=5432
+      - PG_PASSWORD=datomic
+      - PG_USER=datomic
+      - PG_DATABASE=datomic
+    networks:
+      datomic-network:
+        ipv4_address: 192.168.200.6
+    restart: always
+    depends_on:
+      transactor:
+        condition: service_healthy
+      datomic-db-initialization:
+        condition: service_completed_successfully
+
 
 networks:
   datomic-network:
