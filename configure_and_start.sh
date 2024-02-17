@@ -150,7 +150,5 @@ if [[ "${RUN_MODE}" = "RESTORE_DB" ]]; then
 fi
 
 if [[ "${RUN_MODE}" = "CONSOLE" ]]; then
-  validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
-
-  bin/console -p "${DATOMIC_CONSOLE_PORT}" sql $(datomic_uri)
+  bin/console -p "${DATOMIC_CONSOLE_PORT}" sql "datomic:sql://?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
 fi
