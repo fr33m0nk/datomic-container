@@ -15,8 +15,8 @@ datomic_uri() {
   echo "datomic:sql://${DATOMIC_DB_NAME}?jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?user=${PG_USER}&password=${PG_PASSWORD}"
 }
 
-if [[ "${RUN_MODE}" != @(TRANSACTOR|PEER|BACKUP_DB|LIST_BACKUPS|VERIFY_BACKUP|RESTORE_DB) ]]; then
-  echo "Invalid RUN_MODE: ${RUN_MODE} supplied.\nTRANSACTOR, PEER, BACKUP_DB, LIST_BACKUPS, VERIFY_BACKUP, RESTORE_DB are the only supported values."
+if [[ "${RUN_MODE}" != @(TRANSACTOR|PEER|BACKUP_DB|LIST_BACKUPS|VERIFY_BACKUP|RESTORE_DB|CONSOLE) ]]; then
+  echo "Invalid RUN_MODE: ${RUN_MODE} supplied.\nTRANSACTOR, PEER, BACKUP_DB, LIST_BACKUPS, VERIFY_BACKUP, RESTORE_DB, CONSOLE are the only supported values."
   exit 1
 fi
 
@@ -147,4 +147,10 @@ if [[ "${RUN_MODE}" = "RESTORE_DB" ]]; then
   else
     bin/datomic -Xmx"$XMX" -Xms"$XMS" restore-db "${BACKUP_S3_BUCKET_URI}" $(datomic_uri)
   fi
+fi
+
+if [[ "${RUN_MODE}" = "CONSOLE" ]]; then
+  validate_env_vars "${DATOMIC_DB_NAME}" "DATOMIC_DB_NAME"
+
+  bin/console -p "${DATOMIC_CONSOLE_PORT}" sql $(datomic_uri)
 fi
