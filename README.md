@@ -60,7 +60,7 @@
 | PEER_SECRET                         | `PEER`                                                     |                                                                                  | `mysecret`                 |
 | PEER_TX_TIMEOUT_IN_MS               | `PEER`                                                     |                                                                                  | `10000`                    |
 | PEER_READ_CONCURRENCY               | `PEER`                                                     |                                                                                  | `8`                        |
-| DATOMIC_DB_NAME                     | `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE`               |                                                                                  | **None, provided by user** |
+| DATOMIC_DB_NAME                     | `PEER`, `BACKUP_DB`, `RESTORE_DB`                          |                                                                                  | **None, provided by user** |
 | BACKUP_S3_BUCKET_URI                | `BACKUP_DB`, `LIST_BACKUPS`, `VERIFY_BACKUP`, `RESTORE_DB` |                                                                                  | **None, provided by user** |
 | VERIFY_ALL_SEGMENTS                 | `VERIFY_BACKUP`                                            | `true` or `false`                                                                | `true`                     |
 | BACKUP_TIME_IN_LONG                 | `VERIFY_BACKUP`, `RESTORE_DB` (optional)                   |                                                                                  | **None, provided by user** |
