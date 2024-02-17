@@ -48,21 +48,22 @@
 | VALCACHE_MAX_GB                     | `TRANSACTOR` (optional), `PEER` (optional)                 |                                                                                  | **None, provided by user** |
 | XMS                                 | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `4g`                       |
 | XMX                                 | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `4g`                       |
-| LOG_LEVEL                           | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `INFO`                     |
-| PG_PORT                             | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | `5432`                     |
-| PG_HOST                             | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | **None, provided by user** |
-| PG_USER                             | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | **None, provided by user** |
-| PG_PASSWORD                         | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | **None, provided by user** |
-| PG_DATABASE                         | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`            |                                                                                  | **None, provided by user** |
+| LOG_LEVEL                           | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE` |                                                                                  | `INFO`                     |
+| PG_PORT                             | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE` |                                                                                  | `5432`                     |
+| PG_HOST                             | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE` |                                                                                  | **None, provided by user** |
+| PG_USER                             | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE` |                                                                                  | **None, provided by user** |
+| PG_PASSWORD                         | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE` |                                                                                  | **None, provided by user** |
+| PG_DATABASE                         | `TRANSACTOR`, `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE` |                                                                                  | **None, provided by user** |
 | PEER_HOST                           | `PEER`                                                     |                                                                                  | `0.0.0.0`                  |
 | PEER_PORT                           | `PEER`                                                     |                                                                                  | `8998`                     |
 | PEER_ACCESSKEY                      | `PEER`                                                     |                                                                                  | `myaccesskey`              |
 | PEER_SECRET                         | `PEER`                                                     |                                                                                  | `mysecret`                 |
 | PEER_TX_TIMEOUT_IN_MS               | `PEER`                                                     |                                                                                  | `10000`                    |
 | PEER_READ_CONCURRENCY               | `PEER`                                                     |                                                                                  | `8`                        |
-| DATOMIC_DB_NAME                     | `PEER`, `BACKUP_DB`, `RESTORE_DB`                          |                                                                                  | **None, provided by user** |
+| DATOMIC_DB_NAME                     | `PEER`, `BACKUP_DB`, `RESTORE_DB`, `CONSOLE`               |                                                                                  | **None, provided by user** |
 | BACKUP_S3_BUCKET_URI                | `BACKUP_DB`, `LIST_BACKUPS`, `VERIFY_BACKUP`, `RESTORE_DB` |                                                                                  | **None, provided by user** |
 | VERIFY_ALL_SEGMENTS                 | `VERIFY_BACKUP`                                            | `true` or `false`                                                                | `true`                     |
 | BACKUP_TIME_IN_LONG                 | `VERIFY_BACKUP`, `RESTORE_DB` (optional)                   |                                                                                  | **None, provided by user** |
+| DATOMIC_CONSOLE_PORT                | `CONSOLE`                                                  |                                                                                  | `8888`                     |
 
 ### [Official Datomic deployment docs](https://docs.datomic.com/pro/operation/deployment.html)
