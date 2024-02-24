@@ -61,7 +61,7 @@ services:
     build:
       context: ../
       args:
-        DATOMIC_VERSION: 1.0.7075
+        DATOMIC_VERSION: ${DATOMIC_VERSION}
       dockerfile: Dockerfile
     ports:
       - "4336:4336"
